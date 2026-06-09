@@ -1,22 +1,20 @@
-// sistema4.cy.js
-describe('Testes do Sistema 4 - Urna Eletrônica', () => {
-  it('Deve votar em um candidato, confirmar e tirar printscreen', () => {
-    cy.visit('https://sistema-4-urna.netlify.app/');
+describe('Automação do Sistema 4 - Votação na Urna Eletrônica', () => {
+  it('Deve acessar a urna, votar no candidato 67, confirmar e tirar screenshot', () => {
 
-    // Votar no candidato 99
-    cy.get('#teclado-9').click();
-    cy.get('#teclado-9').click();
+    cy.visit('https://sistema-4-urna-v2.netlify.app/');
+    cy.wait(4000);
 
-    // Verificar exibição do candidato na interface da urna antes de confirmar
+    cy.get('button').contains('6').click();
     cy.wait(500);
 
-    // Confirmar voto
-    cy.get('#teclado-confirma').click();
+    cy.get('button').contains('7').click();
+    cy.wait(2000);
 
-    // Aguardar o encerramento ('FIM')
-    cy.wait(1500);
+    cy.get('.btn-confirma').click();
+    cy.wait(4000);
 
-    // Tirar printscreen para comprovar
-    cy.screenshot('sistema4_voto_confirmado');
+    cy.screenshot('print-sistema4-urna-sucesso');
+    cy.wait(2000);
+
   });
 });

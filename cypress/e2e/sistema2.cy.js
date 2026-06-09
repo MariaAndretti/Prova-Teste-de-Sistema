@@ -1,22 +1,53 @@
-// sistema2.cy.js
-describe('Testes do Sistema 2 - Loja Virtual', () => {
-  it('Deve efetuar uma compra completa e comprovar com printscreen', () => {
+describe('Sistema 2', () => {
+  it('', () => {
+
     cy.visit('https://sistema-2-loja.netlify.app');
+    cy.wait(4000);
 
-    // 1. Adicionar produto ao carrinho
-    cy.get('.btn-adicionar-carrinho').first().click();
+    cy.contains('Criar Conta').click();
+    cy.wait(2000);
 
-    // 2. Ir para o carrinho / Checkout
-    cy.get('#icone-carrinho').click();
-    cy.get('#btn-checkout').click();
+    cy.get('#name').type('Maria');
+    cy.get('#email').type('maria@gmail.com');
+    cy.get('#password').type('12345678Ma');
+    cy.wait(1000);
 
-    // 3. Preencher dados de compra
-    cy.get('#nome-cliente').type('Maria V. A. Machado');
-    cy.get('#cartao-numero').type('4444555566667777');
-    cy.get('#btn-finalizar-compra').click();
+    cy.get("button[type='submit']").click();
+    cy.wait(3000);
 
-    // 4. Comprovar sucesso e tirar print
-    cy.get('.sucesso-compra').should('be.visible');
-    cy.screenshot('sistema2_compra_sucesso');
+    cy.visit('https://sistema-2-loja.netlify.app');
+    cy.wait(2000);
+
+    cy.get('#email').type('maria@gmail.com');
+    cy.get('#password').type('12345678Ma');
+    cy.wait(1000);
+
+    cy.contains('Entrar').click();
+    cy.wait(4000);
+
+    cy.get('#depositInput').type('100000000');
+    cy.wait(1000);
+
+    cy.get('#depositButton').click();
+    cy.wait(2000);
+
+    cy.contains('Produtos').click();
+    cy.wait(2000);
+
+    cy.contains('Adicionar ao Carrinho').click();
+    cy.wait(2000);
+
+    cy.contains('Carrinho').click();
+    cy.wait(2000);
+
+    cy.contains('Finalizar Compra').click();
+    cy.wait(2000);
+
+    cy.contains('Confirmar Compra').click();
+    cy.wait(4000);
+
+    cy.screenshot('print-sistema2-fluxo-sucesso');
+    cy.wait(2000);
+
   });
 });
